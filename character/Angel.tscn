@@ -1,0 +1,172 @@
+[gd_scene load_steps=22 format=3 uid="uid://d2iphac4y7y8i"]
+
+[ext_resource type="Script" path="res://character/Personaje_Angel.gd" id="1_c45b1"]
+[ext_resource type="Texture2D" uid="uid://qtlf0ohtoxpv" path="res://images/wip_char.png" id="1_d2afa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kjfh5"]
+size = Vector2(100, 144)
+
+[sub_resource type="Animation" id="Animation_4b7t1"]
+resource_name = "idle"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4.7, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_pnirj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_h6ryi"]
+resource_name = "caminar_derecha"
+length = 0.35
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2, 0.266667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1), Vector2i(0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_f0byd"]
+resource_name = "caminar_izquierda"
+length = 0.35
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2, 0.266667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(7, 1), Vector2i(6, 1), Vector2i(5, 1), Vector2i(4, 1), Vector2i(7, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_1neuw"]
+resource_name = "salto"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.0333333, 0.2, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2i(4, 0), Vector2i(5, 0), Vector2i(5, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r64x2"]
+_data = {
+"RESET": SubResource("Animation_pnirj"),
+"caminar_derecha": SubResource("Animation_h6ryi"),
+"caminar_izquierda": SubResource("Animation_f0byd"),
+"idle": SubResource("Animation_4b7t1"),
+"salto": SubResource("Animation_1neuw")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w5n8u"]
+animation = &"caminar_derecha"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dv55a"]
+animation = &"caminar_izquierda"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_aq4ag"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cj8f2"]
+animation = &"salto"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p5ln5"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kbnoi"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u7tm6"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x5c5i"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ttugw"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sl7f8"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eld65"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_dulcf"]
+states/caminar_derecha/node = SubResource("AnimationNodeAnimation_w5n8u")
+states/caminar_derecha/position = Vector2(545, 36)
+states/caminar_izquierda/node = SubResource("AnimationNodeAnimation_dv55a")
+states/caminar_izquierda/position = Vector2(554, 217)
+states/idle/node = SubResource("AnimationNodeAnimation_aq4ag")
+states/idle/position = Vector2(335, 140)
+states/salto/node = SubResource("AnimationNodeAnimation_cj8f2")
+states/salto/position = Vector2(554, 132)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_p5ln5"), "idle", "caminar_derecha", SubResource("AnimationNodeStateMachineTransition_kbnoi"), "caminar_derecha", "idle", SubResource("AnimationNodeStateMachineTransition_u7tm6"), "idle", "caminar_izquierda", SubResource("AnimationNodeStateMachineTransition_x5c5i"), "caminar_izquierda", "idle", SubResource("AnimationNodeStateMachineTransition_ttugw"), "idle", "salto", SubResource("AnimationNodeStateMachineTransition_sl7f8"), "salto", "idle", SubResource("AnimationNodeStateMachineTransition_eld65")]
+
+[node name="Jugador" type="CharacterBody2D"]
+script = ExtResource("1_c45b1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_d2afa")
+hframes = 8
+vframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_kjfh5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_r64x2")
+}
+autoplay = "idle"
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+deterministic = false
+reset_on_save = false
+tree_root = SubResource("AnimationNodeStateMachine_dulcf")
+anim_player = NodePath("../AnimationPlayer")

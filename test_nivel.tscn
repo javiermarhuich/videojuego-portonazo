@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgwa3klnyx3yj"]
+
+[ext_resource type="PackedScene" uid="uid://dun6jtylswou6" path="res://objects/Piso.tscn" id="1_y30hp"]
+[ext_resource type="PackedScene" uid="uid://d2iphac4y7y8i" path="res://character/Angel.tscn" id="2_wopbp"]
+
+[node name="Nivel" type="Node2D"]
+
+[node name="StaticBody2D" parent="." instance=ExtResource("1_y30hp")]
+position = Vector2(511, 363)
+scale = Vector2(0.680064, 0.480614)
+
+[node name="StaticBody2D2" parent="." instance=ExtResource("1_y30hp")]
+position = Vector2(198, 580)
+scale = Vector2(0.271672, 0.382603)
+
+[node name="StaticBody2D3" parent="." instance=ExtResource("1_y30hp")]
+position = Vector2(930, 531)
+scale = Vector2(0.257482, 0.48764)
+
+[node name="Jugador" parent="." instance=ExtResource("2_wopbp")]
+position = Vector2(320, 248)
+scale = Vector2(0.375444, 0.375217)

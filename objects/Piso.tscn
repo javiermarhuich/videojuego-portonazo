@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dun6jtylswou6"]
+
+[ext_resource type="Texture2D" uid="uid://cg7ibf6ktgc6n" path="res://images/wip_floor.png" id="1_o2v2y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nc12j"]
+size = Vector2(806, 41)
+
+[node name="StaticBody2D" type="StaticBody2D"]
+
+[node name="WipFloor" type="Sprite2D" parent="."]
+scale = Vector2(2.68, 2)
+texture = ExtResource("1_o2v2y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -19.5)
+shape = SubResource("RectangleShape2D_nc12j")
+one_way_collision = true

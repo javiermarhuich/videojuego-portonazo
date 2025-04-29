@@ -1,7 +1,8 @@
+class_name Angel
 extends CharacterBody2D
 
 @onready var animation_tree = $AnimationTree
-@onready var state_machine = $AnimationTree.get('parameters/playback')
+@onready var state_machine = animation_tree.get('parameters/playback')
 
 @export var SPEED = 500.0
 @export var JUMP_VELOCITY = -500.0
@@ -32,12 +33,15 @@ func moving_character_left(direction):
 
 func handle_y_axis_movement(delta):
 	var jump_pressed = Input.is_action_just_pressed("ui_accept")
+	var fall_pressed = Input.is_action_just_pressed("ui_down")
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	if is_on_floor():
 		curr_jump_count = 0
 	if jump_pressed:
 		character_jump()
+	if fall_pressed:
+		character_fall()
 
 func character_jump():
 	if is_on_floor():
@@ -49,6 +53,12 @@ func character_jump():
 			curr_jump_count += 1
 		else:
 			return
+
+func character_fall():
+	if not is_on_floor():
+		velocity.y = SPEED
+	else:
+		return
 
 func reset_position_if_outside_map():
 	if (position.y > 800) or (position.x < -200) or (position.x > 1300):

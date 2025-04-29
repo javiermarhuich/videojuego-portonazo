@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://cc6o1qajo15r8"]
+
+[ext_resource type="Script" path="res://objects/target/target.gd" id="1_had8n"]
+[ext_resource type="Texture2D" uid="uid://b37tqrqth8iwv" path="res://images/target.png" id="2_i6ii7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ndkf7"]
+size = Vector2(40, 76)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1jvpw"]
+size = Vector2(62, 88)
+
+[node name="Area2D" type="RigidBody2D"]
+disable_mode = 2
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_had8n")
+max_health = 2
+
+[node name="Target" type="Sprite2D" parent="."]
+texture = ExtResource("2_i6ii7")
+
+[node name="Gravity" type="CollisionShape2D" parent="."]
+position = Vector2(1, 6)
+shape = SubResource("RectangleShape2D_ndkf7")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -48.0
+offset_top = -80.0
+offset_right = 48.0
+offset_bottom = -53.0
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_1jvpw")

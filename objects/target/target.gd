@@ -13,6 +13,7 @@ func _ready() -> void:
 	
 func _on_body_entered(body: Node2D) -> void:
 	if body is Angel:
+		#target_attacks_player(body)
 		target_gets_hurt()
 
 func target_gets_hurt():
@@ -21,3 +22,8 @@ func target_gets_hurt():
 		progress_bar.value = health
 	else:
 		queue_free()
+		
+# Aplicar Knockback
+func target_attacks_player(body):
+	var knockback_direction = (body.global_position - global_position).normalized()
+	body.apply_knockback(knockback_direction, 800, .3)

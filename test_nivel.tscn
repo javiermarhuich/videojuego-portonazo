@@ -1,30 +1,66 @@
-[gd_scene load_steps=4 format=3 uid="uid://bgwa3klnyx3yj"]
+[gd_scene load_steps=8 format=3 uid="uid://bgwa3klnyx3yj"]
 
 [ext_resource type="PackedScene" uid="uid://dun6jtylswou6" path="res://objects/Piso.tscn" id="1_y30hp"]
 [ext_resource type="PackedScene" uid="uid://d2iphac4y7y8i" path="res://character/Angel.tscn" id="2_wopbp"]
 [ext_resource type="PackedScene" uid="uid://cc6o1qajo15r8" path="res://objects/target/Target.tscn" id="3_n5srj"]
+[ext_resource type="PackedScene" uid="uid://ckp6xtyjybqty" path="res://hud/HealthBar/health_bar.tscn" id="4_5snua"]
+[ext_resource type="Texture2D" uid="uid://byuyg4omfgt7r" path="res://images/hud_door_icon.png" id="4_7ul0h"]
+[ext_resource type="Script" uid="uid://dyrw5cuggvy0p" path="res://HUD.gd" id="4_eit4f"]
+[ext_resource type="Texture2D" uid="uid://ccuwk4viyt8uo" path="res://images/character_icon.png" id="5_eit4f"]
 
 [node name="Nivel" type="Node2D"]
 
-[node name="StaticBody2D" parent="." instance=ExtResource("1_y30hp")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="StaticBody2D" parent="CanvasLayer" instance=ExtResource("1_y30hp")]
 position = Vector2(511, 363)
 scale = Vector2(0.680064, 0.480614)
 
-[node name="StaticBody2D2" parent="." instance=ExtResource("1_y30hp")]
+[node name="StaticBody2D2" parent="CanvasLayer" instance=ExtResource("1_y30hp")]
 position = Vector2(198, 580)
 scale = Vector2(0.271672, 0.382603)
 
-[node name="StaticBody2D3" parent="." instance=ExtResource("1_y30hp")]
+[node name="StaticBody2D3" parent="CanvasLayer" instance=ExtResource("1_y30hp")]
 position = Vector2(930, 531)
 scale = Vector2(0.257482, 0.48764)
 
-[node name="Area2D" parent="." instance=ExtResource("3_n5srj")]
+[node name="Area2D" parent="CanvasLayer" instance=ExtResource("3_n5srj")]
 position = Vector2(729, 289)
 
-[node name="Area2D2" parent="." instance=ExtResource("3_n5srj")]
+[node name="Area2D2" parent="CanvasLayer" instance=ExtResource("3_n5srj")]
 position = Vector2(997, 310)
 
-[node name="Jugador" parent="." instance=ExtResource("2_wopbp")]
+[node name="Jugador" parent="CanvasLayer" instance=ExtResource("2_wopbp")]
 position = Vector2(320, 248)
 scale = Vector2(0.375444, 0.375217)
 collision_mask = 1
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="HUD" node_paths=PackedStringArray("jugador_angel", "angel_door")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_eit4f")
+jugador_angel = NodePath("../../CanvasLayer/Jugador")
+angel_door = NodePath("HudDoorIcon")
+
+[node name="HudDoorIcon" type="Sprite2D" parent="HUD/Control"]
+position = Vector2(109, 70)
+texture = ExtResource("4_7ul0h")
+
+[node name="CharacterIcon" type="Sprite2D" parent="HUD/Control"]
+position = Vector2(64, 56)
+scale = Vector2(1.66667, 1.75)
+texture = ExtResource("5_eit4f")
+
+[node name="TextureProgressBar" parent="HUD/Control" node_paths=PackedStringArray("player") instance=ExtResource("4_5snua")]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 26.0
+offset_right = 459.0
+offset_bottom = 51.0
+player = NodePath("../../../CanvasLayer/Jugador")

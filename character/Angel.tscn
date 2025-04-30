@@ -1,6 +1,6 @@
 [gd_scene load_steps=22 format=3 uid="uid://d2iphac4y7y8i"]
 
-[ext_resource type="Script" path="res://character/Personaje_Angel.gd" id="1_c45b1"]
+[ext_resource type="Script" uid="uid://5dqsrjp0weto" path="res://character/Personaje_Angel.gd" id="1_c45b1"]
 [ext_resource type="Texture2D" uid="uid://qtlf0ohtoxpv" path="res://images/wip_char.png" id="1_d2afa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kjfh5"]
@@ -102,11 +102,11 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r64x2"]
 _data = {
-"RESET": SubResource("Animation_pnirj"),
-"caminar_derecha": SubResource("Animation_h6ryi"),
-"caminar_izquierda": SubResource("Animation_f0byd"),
-"idle": SubResource("Animation_4b7t1"),
-"salto": SubResource("Animation_1neuw")
+&"RESET": SubResource("Animation_pnirj"),
+&"caminar_derecha": SubResource("Animation_h6ryi"),
+&"caminar_izquierda": SubResource("Animation_f0byd"),
+&"idle": SubResource("Animation_4b7t1"),
+&"salto": SubResource("Animation_1neuw")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w5n8u"]

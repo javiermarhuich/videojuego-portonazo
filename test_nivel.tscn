@@ -53,6 +53,7 @@ scale = Vector2(0.375444, 0.375217)
 collision_mask = 1
 
 [node name="HUD" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Control" type="Control" parent="HUD" node_paths=PackedStringArray("jugador_angel", "angel_door")]
 layout_mode = 3
@@ -94,7 +95,7 @@ jugador_angel = NodePath("../../Nivel_jugable/Jugador2")
 angel_door = NodePath("HudDoorIcon")
 
 [node name="HudDoorIcon" type="Sprite2D" parent="HUD/Control2"]
-position = Vector2(1037, 70)
+position = Vector2(1044, 71)
 texture = ExtResource("4_7ul0h")
 
 [node name="CharacterIcon" type="Sprite2D" parent="HUD/Control2"]
@@ -106,9 +107,9 @@ flip_h = true
 [node name="TextureProgressBar" parent="HUD/Control2" node_paths=PackedStringArray("player") instance=ExtResource("4_5snua")]
 layout_mode = 0
 offset_left = 694.0
-offset_top = 31.0
+offset_top = 26.0
 offset_right = 1053.0
-offset_bottom = 56.0
+offset_bottom = 51.0
 player = NodePath("../../../Nivel_jugable/Jugador2")
 
 [node name="Game_Over" type="CanvasLayer" parent="."]

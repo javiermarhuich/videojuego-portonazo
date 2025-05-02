@@ -10,6 +10,7 @@ signal player_puts_new_portal
 @onready var state_machine = animation_tree.get('parameters/playback')
 
 @export var input_prefix: String = "p1"
+@export var enemy_input_prefix: String = "p2"
 
 @export var SPEED = 500.0
 @export var JUMP_VELOCITY = -1000.0
@@ -26,20 +27,33 @@ var knockback_timer = 0.0
 
 var curr_jump_count = 0
 
+var can_be_attacked_by_enemy = false
+
 func _ready() -> void:
 	hurt_box.connect("body_entered", Callable(self, "_on_body_entered"))
+	hurt_box.connect("body_exited", Callable(self, "_on_body_exited"))
 	
 func _on_body_entered(body: Node2D) -> void:
-	if body is Angel:
-		player_gets_hurt()
+	if body is Angel and body != self:
+		can_be_attacked_by_enemy = true
+		
+func _on_body_exited(body: Node2D) -> void:
+	if body is Angel and body != self:
+		can_be_attacked_by_enemy = false
 
 func _physics_process(delta: float) -> void:
+	handle_attack()
 	handle_x_axis_movement()
 	handle_y_axis_movement(delta)
 	reset_position_if_outside_map()
 	handle_knockback(delta)
 	handle_create_new_portal()
 	move_and_slide()
+
+func handle_attack() -> void:
+	var attack_pressed_by_enemy = Input.is_action_just_pressed("attack_"+enemy_input_prefix)
+	if attack_pressed_by_enemy and can_be_attacked_by_enemy:
+		player_gets_hurt()
 	
 func handle_x_axis_movement():
 	if knockback_timer > 0.0:

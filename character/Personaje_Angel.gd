@@ -8,8 +8,10 @@ signal player_puts_new_portal
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get('parameters/playback')
 
+@export var input_prefix: String = "p1"
+
 @export var SPEED = 500.0
-@export var JUMP_VELOCITY = -500.0
+@export var JUMP_VELOCITY = -1000.0
 @export var max_jump_count = 2
 
 @export var max_health = 100
@@ -34,9 +36,11 @@ func _physics_process(delta: float) -> void:
 func handle_x_axis_movement():
 	if knockback_timer > 0.0:
 		return
-	var direction := Input.get_axis("ui_left", "ui_right")
+	var direction := Input.get_axis("move_left_"+input_prefix, "move_right_"+input_prefix)
 	if direction:
 		moving_character_left(direction)
+	elif !is_on_floor():
+		velocity.x = move_toward(velocity.x, 0, abs(velocity.x)/20)
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		state_machine.travel("idle")
@@ -53,10 +57,10 @@ func moving_character_left(direction):
 func handle_y_axis_movement(delta):
 	if knockback_timer > 0.0 or is_frozen:
 		return
-	var jump_pressed = Input.is_action_just_pressed("ui_accept")
-	var fall_pressed = Input.is_action_just_pressed("ui_down")
+	var jump_pressed = Input.is_action_just_pressed("jump_"+input_prefix)
+	var fall_pressed = Input.is_action_just_pressed("down_"+input_prefix)
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		velocity += get_gravity() * delta * 3
 	if is_on_floor():
 		curr_jump_count = 0
 	if jump_pressed:
@@ -99,8 +103,8 @@ func handle_knockback(delta):
 		velocity = knockback
 		knockback_timer -= delta
 		
-		if knockback_timer <= 0.0:
-			knockback = Vector2.ZERO
+	if knockback_timer <= 0.0:
+		knockback = Vector2.ZERO
 
 func apply_knockback(direction: Vector2, force: float, knockback_duration: float):
 	knockback = direction * force

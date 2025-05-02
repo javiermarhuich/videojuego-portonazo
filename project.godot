@@ -15,9 +15,17 @@ run/main_scene="res://test_nivel.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+SettingsDataManager="*res://addons/modular-settings-menu/singletons/settings_data_manager.gd"
+
 [dotnet]
 
 project/assembly_name="Videojuego Portonazo"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/modular-settings-menu/plugin.cfg")
 
 [input]
 

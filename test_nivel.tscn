@@ -114,7 +114,6 @@ offset_bottom = 51.0
 player = NodePath("../../../Nivel_jugable/Jugador2")
 
 [node name="Game_Over" type="CanvasLayer" parent="."]
-visible = false
 script = ExtResource("9_01j55")
 
 [node name="Panel" type="Panel" parent="Game_Over"]

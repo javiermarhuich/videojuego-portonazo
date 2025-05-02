@@ -1,8 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://bgwa3klnyx3yj"]
+[gd_scene load_steps=12 format=3 uid="uid://bgwa3klnyx3yj"]
 
 [ext_resource type="Script" uid="uid://ctsuya4wr2m2f" path="res://test_nivel.gd" id="1_uyrhp"]
 [ext_resource type="PackedScene" uid="uid://d2iphac4y7y8i" path="res://character/Angel.tscn" id="2_wopbp"]
-[ext_resource type="PackedScene" uid="uid://cc6o1qajo15r8" path="res://objects/target/Target.tscn" id="3_n5srj"]
 [ext_resource type="PackedScene" uid="uid://ckp6xtyjybqty" path="res://hud/HealthBar/health_bar.tscn" id="4_5snua"]
 [ext_resource type="Texture2D" uid="uid://byuyg4omfgt7r" path="res://images/hud_door_icon.png" id="4_7ul0h"]
 [ext_resource type="Script" uid="uid://dyrw5cuggvy0p" path="res://HUD.gd" id="4_eit4f"]
@@ -16,9 +15,8 @@
 font_size = 80
 outline_size = 7
 
-[node name="Nivel" type="Node2D" node_paths=PackedStringArray("jugador_angel")]
+[node name="Nivel" type="Node2D"]
 script = ExtResource("1_uyrhp")
-jugador_angel = NodePath("Nivel_jugable/Jugador1")
 
 [node name="Nivel_jugable" type="CanvasLayer" parent="."]
 
@@ -36,38 +34,46 @@ scale = Vector2(0.15, 0.176406)
 position = Vector2(571, 262)
 scale = Vector2(0.08, 0.0934063)
 
-[node name="Area2D" parent="Nivel_jugable" instance=ExtResource("3_n5srj")]
-position = Vector2(729, 289)
-
-[node name="Area2D2" parent="Nivel_jugable" instance=ExtResource("3_n5srj")]
-position = Vector2(710, 97)
-
 [node name="Jugador1" parent="Nivel_jugable" instance=ExtResource("2_wopbp")]
+light_mask = 3
+z_index = 2
 position = Vector2(320, 248)
 scale = Vector2(0.375444, 0.375217)
+collision_layer = 3
 collision_mask = 1
 
 [node name="Jugador2" parent="Nivel_jugable" instance=ExtResource("2_wopbp")]
+light_mask = 3
+z_index = 2
 position = Vector2(828, 224)
 scale = Vector2(0.375444, 0.375217)
+collision_layer = 3
 collision_mask = 1
 input_prefix = "p2"
 enemy_input_prefix = "p1"
 
-[node name="HUD" type="CanvasLayer" parent="."]
+[node name="HUD" type="CanvasLayer" parent="." node_paths=PackedStringArray("jugador_p1", "jugador_p2")]
+script = ExtResource("4_eit4f")
+jugador_p1 = NodePath("../Nivel_jugable/Jugador1")
+jugador_p2 = NodePath("../Nivel_jugable/Jugador2")
 
-[node name="Control" type="Control" parent="HUD" node_paths=PackedStringArray("jugador_angel", "angel_door")]
+[node name="Control" type="Control" parent="HUD"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("4_eit4f")
-jugador_angel = NodePath("../../Nivel_jugable/Jugador1")
-angel_door = NodePath("HudDoorIcon")
 
-[node name="HudDoorIcon" type="Sprite2D" parent="HUD/Control"]
+[node name="p1_vida_3" type="Sprite2D" parent="HUD/Control"]
+position = Vector2(160, 70)
+texture = ExtResource("4_7ul0h")
+
+[node name="p1_vida_2" type="Sprite2D" parent="HUD/Control"]
+position = Vector2(135, 70)
+texture = ExtResource("4_7ul0h")
+
+[node name="p1_vida_1" type="Sprite2D" parent="HUD/Control"]
 position = Vector2(109, 70)
 texture = ExtResource("4_7ul0h")
 
@@ -84,18 +90,23 @@ offset_right = 459.0
 offset_bottom = 51.0
 player = NodePath("../../../Nivel_jugable/Jugador1")
 
-[node name="Control2" type="Control" parent="HUD" node_paths=PackedStringArray("jugador_angel", "angel_door")]
+[node name="Control2" type="Control" parent="HUD"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("4_eit4f")
-jugador_angel = NodePath("../../Nivel_jugable/Jugador2")
-angel_door = NodePath("HudDoorIcon")
 
-[node name="HudDoorIcon" type="Sprite2D" parent="HUD/Control2"]
+[node name="p2_Vida_3" type="Sprite2D" parent="HUD/Control2"]
+position = Vector2(996, 71)
+texture = ExtResource("4_7ul0h")
+
+[node name="p2_Vida_2" type="Sprite2D" parent="HUD/Control2"]
+position = Vector2(1020, 71)
+texture = ExtResource("4_7ul0h")
+
+[node name="p2_Vida_1" type="Sprite2D" parent="HUD/Control2"]
 position = Vector2(1044, 71)
 texture = ExtResource("4_7ul0h")
 

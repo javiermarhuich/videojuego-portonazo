@@ -2,7 +2,7 @@ class_name Angel
 extends CharacterBody2D
 
 signal health_change
-signal player_has_door
+signal lifes_change
 signal player_puts_new_portal
 
 @onready var animation_tree = $AnimationTree
@@ -18,8 +18,8 @@ signal player_puts_new_portal
 
 @export var max_health = 100
 @onready var health = max_health
+var lifes = 3
 
-var has_door = true
 var is_frozen = false
 
 var knockback : Vector2 = Vector2.ZERO
@@ -158,16 +158,24 @@ func character_fall():
 		return
 
 func reset_position_if_outside_map():
-	if (position.y > 800) or (position.x < -200) or (position.x > 1300):
+	if (position.y > 900) or (position.x < -300) or (position.x > 1300):
 		position.y = 70
 		position.x = 520
-		health = 0 #max_health
+		health = max_health
+		lifes -= 1
 		health_change.emit()
+		lifes_change.emit()
 		end_game_if_player_has_no_life()
 		
 func player_gets_hurt():
 	health -= 10
 	health_change.emit()
+	if health <= 0:
+		lifes -= 1
+		position.y = 70
+		position.x = 520
+		health = max_health
+		lifes_change.emit()
 	end_game_if_player_has_no_life()
 
 func handle_knockback(delta):
@@ -183,12 +191,11 @@ func apply_knockback(direction: Vector2, force: float, knockback_duration: float
 	knockback = direction * force
 	knockback_timer = knockback_duration
 
-func handle_create_new_portal():
-	var jump_pressed = Input.is_action_just_pressed("ui_text_completion_replace")
-	if jump_pressed and has_door:
-		has_door = false
+func handle_create_new_portal():	
+	var jump_pressed = Input.is_action_just_pressed("portal_"+input_prefix)
+	if jump_pressed:
 		player_puts_new_portal.emit()
-		player_has_door.emit()
+		#player_has_door.emit()
 
 func set_character_position(x: int, y:int):
 	position.x = x
@@ -196,12 +203,7 @@ func set_character_position(x: int, y:int):
 	is_frozen = true
 	await get_tree().create_timer(0.2).timeout
 	is_frozen = false
-
-func set_character_has_door_true():
-	if has_door == false:
-		has_door = true
-		player_has_door.emit()
 		
 func end_game_if_player_has_no_life():
-	if health <= 0:
+	if lifes <= 0:
 		get_node("../../Game_Over").game_over()

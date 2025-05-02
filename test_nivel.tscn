@@ -53,7 +53,6 @@ scale = Vector2(0.375444, 0.375217)
 collision_mask = 1
 
 [node name="HUD" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Control" type="Control" parent="HUD" node_paths=PackedStringArray("jugador_angel", "angel_door")]
 layout_mode = 3

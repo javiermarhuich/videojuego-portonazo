@@ -6,6 +6,7 @@ signal player_has_door
 signal player_puts_new_portal
 
 @onready var animation_tree = $AnimationTree
+@onready var hurt_box = $Hurtbox
 @onready var state_machine = animation_tree.get('parameters/playback')
 
 @export var input_prefix: String = "p1"
@@ -24,6 +25,13 @@ var knockback : Vector2 = Vector2.ZERO
 var knockback_timer = 0.0
 
 var curr_jump_count = 0
+
+func _ready() -> void:
+	hurt_box.connect("body_entered", Callable(self, "_on_body_entered"))
+	
+func _on_body_entered(body: Node2D) -> void:
+	if body is Angel:
+		player_gets_hurt()
 
 func _physics_process(delta: float) -> void:
 	handle_x_axis_movement()

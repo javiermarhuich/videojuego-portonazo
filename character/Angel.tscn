@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://d2iphac4y7y8i"]
+[gd_scene load_steps=23 format=3 uid="uid://d2iphac4y7y8i"]
 
 [ext_resource type="Script" uid="uid://5dqsrjp0weto" path="res://character/Personaje_Angel.gd" id="1_c45b1"]
 [ext_resource type="Texture2D" uid="uid://qtlf0ohtoxpv" path="res://images/wip_char.png" id="1_d2afa"]
@@ -147,6 +147,9 @@ states/salto/node = SubResource("AnimationNodeAnimation_cj8f2")
 states/salto/position = Vector2(554, 132)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_p5ln5"), "idle", "caminar_derecha", SubResource("AnimationNodeStateMachineTransition_kbnoi"), "caminar_derecha", "idle", SubResource("AnimationNodeStateMachineTransition_u7tm6"), "idle", "caminar_izquierda", SubResource("AnimationNodeStateMachineTransition_x5c5i"), "caminar_izquierda", "idle", SubResource("AnimationNodeStateMachineTransition_ttugw"), "idle", "salto", SubResource("AnimationNodeStateMachineTransition_sl7f8"), "salto", "idle", SubResource("AnimationNodeStateMachineTransition_eld65")]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aq6j2"]
+size = Vector2(115, 155)
+
 [node name="Jugador" type="CharacterBody2D"]
 collision_mask = 2
 script = ExtResource("1_c45b1")
@@ -157,7 +160,6 @@ hframes = 8
 vframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_kjfh5")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -171,3 +173,10 @@ deterministic = false
 reset_on_save = false
 tree_root = SubResource("AnimationNodeStateMachine_dulcf")
 anim_player = NodePath("../AnimationPlayer")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_aq6j2")
+debug_color = Color(0.690473, 0.493667, 0.178714, 0.42)

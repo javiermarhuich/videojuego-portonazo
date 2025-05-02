@@ -28,6 +28,8 @@ var knockback_timer = 0.0
 var attack_count = 0
 var attack_timer = 0.0
 
+var blocking = false
+
 var orbit_radius = 180.0
 var orbit_angle = 0.0
 var orbit_speed = 20.0
@@ -55,6 +57,7 @@ func _physics_process(delta: float) -> void:
 	handle_knockback(delta)
 	handle_create_new_portal()
 	swing_door(delta)
+	handle_block()
 	move_and_slide()
 	
 func swing_door(delta) -> void:
@@ -62,12 +65,15 @@ func swing_door(delta) -> void:
 		return
 	var pressed_attack = Input.is_action_just_pressed("attack_"+input_prefix)
 	if pressed_attack and attack_timer <= 0.0:
-		attack_count = 0
-		attack_timer = 0.5
-		if $Sprite2D.flip_h:
-			orbit_angle = -0.5
+		if not blocking:
+			attack_count = 0
+			attack_timer = 0.5
+			if $Sprite2D.flip_h:
+				orbit_angle = -0.5
+			else:
+				orbit_angle = 3.5
 		else:
-			orbit_angle = 3.5
+			print("Parry!")
 	
 	if attack_timer > 0.0:
 		var overlapping_bodies = $DoorBox.get_overlapping_bodies()
@@ -81,7 +87,8 @@ func swing_door(delta) -> void:
 						else:
 							direction = Vector2(1.0,-1.0)
 						body.apply_knockback(direction, 1000, 0.25)
-						body.player_gets_hurt()
+						if not body.blocking:
+							body.player_gets_hurt()
 						attack_count += 1
 		if $Sprite2D.flip_h and attack_timer <= 0.4:
 			orbit_angle = maxf(orbit_angle -orbit_speed*delta, -3.5)
@@ -92,9 +99,9 @@ func swing_door(delta) -> void:
 		$DoorBox/Sprite2D.rotation = offset.angle() + PI / 2
 		attack_timer -= delta
 	else:
-		$DoorBox.position = Vector2(0, -orbit_radius)
+		if not blocking:
+			$DoorBox.position = Vector2(0, -orbit_radius)
 		$DoorBox/Sprite2D.rotation = 0.0
-		pass
 		
 func handle_x_axis_movement(delta):
 	if knockback_timer > 0.0:
@@ -111,16 +118,20 @@ func handle_x_axis_movement(delta):
 func moving_character_left(delta, direction):
 	if is_frozen:
 		return
-	if direction == 1:
-		if attack_timer <= 0.0:
-			$Sprite2D.flip_h = false
-		state_machine.travel("caminar_derecha")
+	if not blocking:
+		if direction == 1:
+			if attack_timer <= 0.0:
+				$Sprite2D.flip_h = false
+			state_machine.travel("caminar_derecha")
+		else:
+			if attack_timer <= 0.0:
+				$Sprite2D.flip_h = true
+			state_machine.travel("caminar_derecha")
+	var velocity_change
+	if blocking:
+		velocity_change = 0.0
 	else:
-		if attack_timer <= 0.0:
-			$Sprite2D.flip_h = true
-		state_machine.travel("caminar_derecha")
-	var velocity_change = SPEED * direction * delta
-	var current_velocity = velocity.x
+		velocity_change = SPEED * direction * delta
 	if abs(velocity.x) > SPEED:
 		velocity.x = move_toward(velocity.x, velocity_change, abs(velocity.x)/20)
 	else:
@@ -130,7 +141,7 @@ func handle_y_axis_movement(delta):
 	if knockback_timer > 0.0 or is_frozen:
 		return
 	var jump_pressed = Input.is_action_just_pressed("jump_"+input_prefix)
-	var fall_pressed = Input.is_action_just_pressed("down_"+input_prefix)
+	var fall_pressed = Input.is_action_pressed("down_"+input_prefix)
 	if not is_on_floor():
 		velocity += get_gravity() * delta * 3
 	if is_on_floor():
@@ -138,7 +149,9 @@ func handle_y_axis_movement(delta):
 	if jump_pressed:
 		character_jump()
 	if fall_pressed:
-		character_fall()
+		character_fall(delta)
+	else:
+		blocking = false
 
 func character_jump():
 	if is_on_floor():
@@ -151,11 +164,22 @@ func character_jump():
 		else:
 			return
 
-func character_fall():
+func character_fall(delta):
 	if not is_on_floor():
-		velocity.y = SPEED
+		blocking = false
+		if velocity.y < SPEED:
+			velocity.y = SPEED
 	else:
-		return
+		if attack_timer <= 0.0 and knockback_timer <= 0.0:
+			blocking = true
+			velocity.x = 0.0
+		else:
+			blocking = false
+			
+func handle_block():
+	if blocking:
+		$DoorBox.position = Vector2(0.0, 0.0)
+		$DoorBox.rotation = 0.0
 
 func reset_position_if_outside_map():
 	if (position.y > 900) or (position.x < -300) or (position.x > 1300):

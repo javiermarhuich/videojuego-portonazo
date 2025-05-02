@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqe3s4djfy5nr"]
+
+[ext_resource type="Texture2D" uid="uid://cxsjpydc3x3x7" path="res://images/Plataforma derecha.png" id="1_egyop"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x60by"]
+size = Vector2(1527.31, 183.053)
+
+[node name="PlataformaDerecha" type="StaticBody2D"]
+
+[node name="PlataformaDerecha" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_egyop")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(28.4199, -22.8546)
+rotation = -3.14159
+scale = Vector2(0.0909047, -0.162298)
+shape = SubResource("RectangleShape2D_x60by")

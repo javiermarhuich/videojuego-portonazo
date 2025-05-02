@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cg7ibf6ktgc6n" path="res://images/wip_floor.png" id="1_o2v2y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nc12j"]
-size = Vector2(806, 41)
+size = Vector2(4418, 277)
 
 [node name="StaticBody2D" type="StaticBody2D"]
 

@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://bgwa3klnyx3yj"]
+[gd_scene load_steps=13 format=3 uid="uid://bgwa3klnyx3yj"]
 
 [ext_resource type="Script" uid="uid://ctsuya4wr2m2f" path="res://test_nivel.gd" id="1_uyrhp"]
-[ext_resource type="PackedScene" uid="uid://dun6jtylswou6" path="res://objects/Piso.tscn" id="1_y30hp"]
 [ext_resource type="PackedScene" uid="uid://d2iphac4y7y8i" path="res://character/Angel.tscn" id="2_wopbp"]
 [ext_resource type="PackedScene" uid="uid://cc6o1qajo15r8" path="res://objects/target/Target.tscn" id="3_n5srj"]
 [ext_resource type="PackedScene" uid="uid://ckp6xtyjybqty" path="res://hud/HealthBar/health_bar.tscn" id="4_5snua"]
@@ -9,6 +8,9 @@
 [ext_resource type="Script" uid="uid://dyrw5cuggvy0p" path="res://HUD.gd" id="4_eit4f"]
 [ext_resource type="Texture2D" uid="uid://ccuwk4viyt8uo" path="res://images/character_icon.png" id="5_eit4f"]
 [ext_resource type="Script" uid="uid://b01sao5pug0bj" path="res://game_over.gd" id="9_01j55"]
+[ext_resource type="PackedScene" uid="uid://d341sykot2vlk" path="res://objects/Plataformas/PlataformaCentral.tscn" id="9_esuhr"]
+[ext_resource type="PackedScene" uid="uid://bqe3s4djfy5nr" path="res://objects/Plataformas/PlataformaDerecha.tscn" id="9_r2cik"]
+[ext_resource type="PackedScene" uid="uid://cfvixw7n7rda" path="res://objects/Plataformas/PlataformaIzquierda.tscn" id="10_3ocgg"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_esuhr"]
 font_size = 80
@@ -20,23 +22,25 @@ jugador_angel = NodePath("Nivel_jugable/Jugador")
 
 [node name="Nivel_jugable" type="CanvasLayer" parent="."]
 
-[node name="StaticBody2D" parent="Nivel_jugable" instance=ExtResource("1_y30hp")]
-position = Vector2(511, 363)
-scale = Vector2(0.680064, 0.480614)
+[node name="PlataformaDerecha" parent="Nivel_jugable" instance=ExtResource("9_r2cik")]
+position = Vector2(984, 527)
 
-[node name="StaticBody2D2" parent="Nivel_jugable" instance=ExtResource("1_y30hp")]
-position = Vector2(198, 580)
-scale = Vector2(0.271672, 0.382603)
+[node name="PlataformaIzquierda" parent="Nivel_jugable" instance=ExtResource("10_3ocgg")]
+position = Vector2(161, 538)
 
-[node name="StaticBody2D3" parent="Nivel_jugable" instance=ExtResource("1_y30hp")]
-position = Vector2(930, 531)
-scale = Vector2(0.257482, 0.48764)
+[node name="StaticBody2D" parent="Nivel_jugable" instance=ExtResource("9_esuhr")]
+position = Vector2(574, 528)
+scale = Vector2(0.15, 0.176406)
+
+[node name="StaticBody2D2" parent="Nivel_jugable" instance=ExtResource("9_esuhr")]
+position = Vector2(571, 262)
+scale = Vector2(0.08, 0.0934063)
 
 [node name="Area2D" parent="Nivel_jugable" instance=ExtResource("3_n5srj")]
 position = Vector2(729, 289)
 
 [node name="Area2D2" parent="Nivel_jugable" instance=ExtResource("3_n5srj")]
-position = Vector2(997, 310)
+position = Vector2(710, 97)
 
 [node name="Jugador" parent="Nivel_jugable" instance=ExtResource("2_wopbp")]
 position = Vector2(320, 248)

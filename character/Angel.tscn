@@ -1,7 +1,8 @@
-[gd_scene load_steps=23 format=3 uid="uid://d2iphac4y7y8i"]
+[gd_scene load_steps=25 format=3 uid="uid://d2iphac4y7y8i"]
 
 [ext_resource type="Script" uid="uid://5dqsrjp0weto" path="res://character/Personaje_Angel.gd" id="1_c45b1"]
 [ext_resource type="Texture2D" uid="uid://qtlf0ohtoxpv" path="res://images/wip_char.png" id="1_d2afa"]
+[ext_resource type="Texture2D" uid="uid://byuyg4omfgt7r" path="res://images/hud_door_icon.png" id="3_qvm42"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kjfh5"]
 size = Vector2(100, 144)
@@ -150,6 +151,9 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aq6j2"]
 size = Vector2(115, 155)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ofyb"]
+size = Vector2(101, 142)
+
 [node name="Jugador" type="CharacterBody2D"]
 collision_mask = 2
 script = ExtResource("1_c45b1")
@@ -180,3 +184,12 @@ anim_player = NodePath("../AnimationPlayer")
 position = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_aq6j2")
 debug_color = Color(0.690473, 0.493667, 0.178714, 0.42)
+
+[node name="DoorBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorBox"]
+shape = SubResource("RectangleShape2D_0ofyb")
+
+[node name="Sprite2D" type="Sprite2D" parent="DoorBox"]
+scale = Vector2(5, 5)
+texture = ExtResource("3_qvm42")

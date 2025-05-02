@@ -22,8 +22,8 @@ func _on_body_entered(body: Node2D) -> void:
 		
 func move_character_and_destroy_portal(body):
 	player_crossed.emit()
-	var position = generate_position(body)
-	body.set_character_position(position[0], position[1])
+	var portal_position = generate_position(body)
+	body.set_character_position(portal_position[0], portal_position[1])
 	queue_free()
  
 func generate_position(body):
@@ -31,7 +31,7 @@ func generate_position(body):
 	var curr_pos_y = body.position.y
 	var random = RandomNumberGenerator.new()
 	var position_x = generate_position_x(random, curr_pos_x)
-	var position_y = generate_position_y(random, curr_pos_x)
+	var position_y = generate_position_y(random, curr_pos_y)
 	return [position_x, position_y]
 	
 func generate_position_x(random, limit_position):

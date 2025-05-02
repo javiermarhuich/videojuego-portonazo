@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bgwa3klnyx3yj"]
+[gd_scene load_steps=11 format=3 uid="uid://bgwa3klnyx3yj"]
 
 [ext_resource type="Script" uid="uid://ctsuya4wr2m2f" path="res://test_nivel.gd" id="1_uyrhp"]
 [ext_resource type="PackedScene" uid="uid://dun6jtylswou6" path="res://objects/Piso.tscn" id="1_y30hp"]
@@ -8,6 +8,11 @@
 [ext_resource type="Texture2D" uid="uid://byuyg4omfgt7r" path="res://images/hud_door_icon.png" id="4_7ul0h"]
 [ext_resource type="Script" uid="uid://dyrw5cuggvy0p" path="res://HUD.gd" id="4_eit4f"]
 [ext_resource type="Texture2D" uid="uid://ccuwk4viyt8uo" path="res://images/character_icon.png" id="5_eit4f"]
+[ext_resource type="Script" uid="uid://b01sao5pug0bj" path="res://game_over.gd" id="9_01j55"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_esuhr"]
+font_size = 80
+outline_size = 7
 
 [node name="Nivel" type="Node2D" node_paths=PackedStringArray("jugador_angel")]
 script = ExtResource("1_uyrhp")
@@ -67,3 +72,36 @@ offset_top = 26.0
 offset_right = 459.0
 offset_bottom = 51.0
 player = NodePath("../../../Nivel_jugable/Jugador")
+
+[node name="Game_Over" type="CanvasLayer" parent="."]
+script = ExtResource("9_01j55")
+
+[node name="Panel" type="Panel" parent="Game_Over"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Game_Over"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 259.0
+grow_horizontal = 2
+text = "Fin de la partida"
+label_settings = SubResource("LabelSettings_esuhr")
+horizontal_alignment = 1
+vertical_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="Game_Over"]
+process_mode = 3
+offset_left = 505.0
+offset_top = 340.0
+offset_right = 681.0
+offset_bottom = 396.0
+text = "Volver a jugar"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="Game_Over/Button" to="Game_Over" method="_on_button_pressed"]

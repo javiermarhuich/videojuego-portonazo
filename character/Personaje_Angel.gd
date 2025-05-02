@@ -85,12 +85,14 @@ func reset_position_if_outside_map():
 	if (position.y > 800) or (position.x < -200) or (position.x > 1300):
 		position.y = 70
 		position.x = 520
-		health = max_health #0
+		health = 0 #max_health
 		health_change.emit()
+		end_game_if_player_has_no_life()
 		
 func player_gets_hurt():
 	health -= 10
 	health_change.emit()
+	end_game_if_player_has_no_life()
 
 func handle_knockback(delta):
 	if knockback_timer > 0.0:
@@ -122,3 +124,7 @@ func set_character_has_door_true():
 	if has_door == false:
 		has_door = true
 		player_has_door.emit()
+		
+func end_game_if_player_has_no_life():
+	if health <= 0:
+		get_node("../../Game_Over").game_over()

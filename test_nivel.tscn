@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://bgwa3klnyx3yj"]
+[gd_scene load_steps=9 format=3 uid="uid://bgwa3klnyx3yj"]
 
+[ext_resource type="Script" uid="uid://ctsuya4wr2m2f" path="res://test_nivel.gd" id="1_uyrhp"]
 [ext_resource type="PackedScene" uid="uid://dun6jtylswou6" path="res://objects/Piso.tscn" id="1_y30hp"]
 [ext_resource type="PackedScene" uid="uid://d2iphac4y7y8i" path="res://character/Angel.tscn" id="2_wopbp"]
 [ext_resource type="PackedScene" uid="uid://cc6o1qajo15r8" path="res://objects/target/Target.tscn" id="3_n5srj"]
@@ -8,29 +9,31 @@
 [ext_resource type="Script" uid="uid://dyrw5cuggvy0p" path="res://HUD.gd" id="4_eit4f"]
 [ext_resource type="Texture2D" uid="uid://ccuwk4viyt8uo" path="res://images/character_icon.png" id="5_eit4f"]
 
-[node name="Nivel" type="Node2D"]
+[node name="Nivel" type="Node2D" node_paths=PackedStringArray("jugador_angel")]
+script = ExtResource("1_uyrhp")
+jugador_angel = NodePath("Nivel_jugable/Jugador")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Nivel_jugable" type="CanvasLayer" parent="."]
 
-[node name="StaticBody2D" parent="CanvasLayer" instance=ExtResource("1_y30hp")]
+[node name="StaticBody2D" parent="Nivel_jugable" instance=ExtResource("1_y30hp")]
 position = Vector2(511, 363)
 scale = Vector2(0.680064, 0.480614)
 
-[node name="StaticBody2D2" parent="CanvasLayer" instance=ExtResource("1_y30hp")]
+[node name="StaticBody2D2" parent="Nivel_jugable" instance=ExtResource("1_y30hp")]
 position = Vector2(198, 580)
 scale = Vector2(0.271672, 0.382603)
 
-[node name="StaticBody2D3" parent="CanvasLayer" instance=ExtResource("1_y30hp")]
+[node name="StaticBody2D3" parent="Nivel_jugable" instance=ExtResource("1_y30hp")]
 position = Vector2(930, 531)
 scale = Vector2(0.257482, 0.48764)
 
-[node name="Area2D" parent="CanvasLayer" instance=ExtResource("3_n5srj")]
+[node name="Area2D" parent="Nivel_jugable" instance=ExtResource("3_n5srj")]
 position = Vector2(729, 289)
 
-[node name="Area2D2" parent="CanvasLayer" instance=ExtResource("3_n5srj")]
+[node name="Area2D2" parent="Nivel_jugable" instance=ExtResource("3_n5srj")]
 position = Vector2(997, 310)
 
-[node name="Jugador" parent="CanvasLayer" instance=ExtResource("2_wopbp")]
+[node name="Jugador" parent="Nivel_jugable" instance=ExtResource("2_wopbp")]
 position = Vector2(320, 248)
 scale = Vector2(0.375444, 0.375217)
 collision_mask = 1
@@ -45,7 +48,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_eit4f")
-jugador_angel = NodePath("../../CanvasLayer/Jugador")
+jugador_angel = NodePath("../../Nivel_jugable/Jugador")
 angel_door = NodePath("HudDoorIcon")
 
 [node name="HudDoorIcon" type="Sprite2D" parent="HUD/Control"]
@@ -63,4 +66,4 @@ offset_left = 100.0
 offset_top = 26.0
 offset_right = 459.0
 offset_bottom = 51.0
-player = NodePath("../../../CanvasLayer/Jugador")
+player = NodePath("../../../Nivel_jugable/Jugador")

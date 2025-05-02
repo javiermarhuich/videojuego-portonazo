@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 signal health_change
 signal player_has_door
+signal player_puts_new_portal
 
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get('parameters/playback')
@@ -14,7 +15,8 @@ signal player_has_door
 @export var max_health = 100
 @onready var health = max_health
 
-@export var has_door = true
+var has_door = true
+var is_frozen = false
 
 var knockback : Vector2 = Vector2.ZERO
 var knockback_timer = 0.0
@@ -26,6 +28,7 @@ func _physics_process(delta: float) -> void:
 	handle_y_axis_movement(delta)
 	reset_position_if_outside_map()
 	handle_knockback(delta)
+	handle_create_new_portal()
 	move_and_slide()
 	
 func handle_x_axis_movement():
@@ -39,6 +42,8 @@ func handle_x_axis_movement():
 		state_machine.travel("idle")
 	
 func moving_character_left(direction):
+	if is_frozen:
+		return
 	if direction == 1:
 		state_machine.travel("caminar_derecha")
 	else:
@@ -46,7 +51,7 @@ func moving_character_left(direction):
 	velocity.x = SPEED * direction
 
 func handle_y_axis_movement(delta):
-	if knockback_timer > 0.0:
+	if knockback_timer > 0.0 or is_frozen:
 		return
 	var jump_pressed = Input.is_action_just_pressed("ui_accept")
 	var fall_pressed = Input.is_action_just_pressed("ui_down")
@@ -80,8 +85,12 @@ func reset_position_if_outside_map():
 	if (position.y > 800) or (position.x < -200) or (position.x > 1300):
 		position.y = 70
 		position.x = 520
-		health = 0
+		health = max_health #0
 		health_change.emit()
+		
+func player_gets_hurt():
+	health -= 10
+	health_change.emit()
 
 func handle_knockback(delta):
 	if knockback_timer > 0.0:
@@ -94,3 +103,22 @@ func handle_knockback(delta):
 func apply_knockback(direction: Vector2, force: float, knockback_duration: float):
 	knockback = direction * force
 	knockback_timer = knockback_duration
+
+func handle_create_new_portal():
+	var jump_pressed = Input.is_action_just_pressed("ui_text_completion_replace")
+	if jump_pressed and has_door:
+		has_door = false
+		player_puts_new_portal.emit()
+		player_has_door.emit()
+
+func set_character_position(x: int, y:int):
+	position.x = x
+	position.y = y
+	is_frozen = true
+	await get_tree().create_timer(0.2).timeout
+	is_frozen = false
+
+func set_character_has_door_true():
+	if has_door == false:
+		has_door = true
+		player_has_door.emit()

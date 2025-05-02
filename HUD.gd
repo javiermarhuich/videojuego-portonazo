@@ -15,6 +15,3 @@ func show_angel_has_door():
 		angel_door.visible = true
 	else:
 		angel_door.visible = false
-
-#func update(): 
-#	value = player.health * 100 / player.max_health

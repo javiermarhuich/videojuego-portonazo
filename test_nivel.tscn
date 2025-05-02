@@ -82,7 +82,37 @@ offset_right = 459.0
 offset_bottom = 51.0
 player = NodePath("../../../Nivel_jugable/Jugador1")
 
+[node name="Control2" type="Control" parent="HUD" node_paths=PackedStringArray("jugador_angel", "angel_door")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_eit4f")
+jugador_angel = NodePath("../../Nivel_jugable/Jugador2")
+angel_door = NodePath("HudDoorIcon")
+
+[node name="HudDoorIcon" type="Sprite2D" parent="HUD/Control2"]
+position = Vector2(1037, 70)
+texture = ExtResource("4_7ul0h")
+
+[node name="CharacterIcon" type="Sprite2D" parent="HUD/Control2"]
+position = Vector2(1082, 58)
+scale = Vector2(1.66667, 1.75)
+texture = ExtResource("5_eit4f")
+flip_h = true
+
+[node name="TextureProgressBar" parent="HUD/Control2" node_paths=PackedStringArray("player") instance=ExtResource("4_5snua")]
+layout_mode = 0
+offset_left = 694.0
+offset_top = 31.0
+offset_right = 1053.0
+offset_bottom = 56.0
+player = NodePath("../../../Nivel_jugable/Jugador2")
+
 [node name="Game_Over" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("9_01j55")
 
 [node name="Panel" type="Panel" parent="Game_Over"]

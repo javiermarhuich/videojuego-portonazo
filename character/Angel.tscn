@@ -229,7 +229,7 @@ shape = SubResource("RectangleShape2D_0ofyb")
 [node name="Sprite2D" type="Sprite2D" parent="DoorBox"]
 position = Vector2(6.2161, 6.73801)
 rotation = 0.0349066
-scale = Vector2(0.111, 0.122)
+scale = Vector2(0.13, 0.143)
 texture = ExtResource("4_bxjxq")
 
 [node name="parryboxArea" type="Area2D" parent="."]

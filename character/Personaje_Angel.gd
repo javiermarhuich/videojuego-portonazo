@@ -100,8 +100,8 @@ func swing_door(delta) -> void:
 		attack_timer -= delta
 	else:
 		if not blocking:
-			$DoorBox.position = Vector2(0, -orbit_radius)
-		$DoorBox/Sprite2D.rotation = 0.0
+			$DoorBox.position = Vector2(100*(sign(2*int($Sprite2D.flip_h)-1)), -orbit_radius)
+		$DoorBox/Sprite2D.rotation = 0.5 - (1-float($Sprite2D.flip_h))
 		
 func handle_x_axis_movement(delta):
 	if knockback_timer > 0.0:

@@ -29,6 +29,7 @@ var attack_count = 0
 var attack_timer = 0.0
 
 var blocking = false
+var parrying = false
 
 var orbit_radius = 180.0
 var orbit_angle = 0.0
@@ -59,12 +60,13 @@ func _physics_process(delta: float) -> void:
 	swing_door(delta)
 	handle_block()
 	move_and_slide()
+	reset_after_parry(delta)
 	
 func swing_door(delta) -> void:
 	if knockback_timer > 0.0:
 		return
 	var pressed_attack = Input.is_action_just_pressed("attack_"+input_prefix)
-	if pressed_attack and attack_timer <= 0.0:
+	if pressed_attack and attack_timer == 0.0:
 		if not blocking:
 			attack_count = 0
 			attack_timer = 0.5
@@ -73,7 +75,13 @@ func swing_door(delta) -> void:
 			else:
 				orbit_angle = 3.5
 		else:
-			print("Parry!")
+			if $parryboxArea/ParryTime.is_stopped() and $parryboxArea/cooldown.is_stopped():
+				$parryboxArea.visible = true
+				$parryboxArea/ParryTime.start()
+				print("Parry!")
+				parrying = true
+				
+				
 	
 	if attack_timer > 0.0:
 		var overlapping_bodies = $DoorBox.get_overlapping_bodies()
@@ -86,9 +94,14 @@ func swing_door(delta) -> void:
 							direction = Vector2(-1.0,-1.0)
 						else:
 							direction = Vector2(1.0,-1.0)
-						body.apply_knockback(direction, 1000, 0.25)
-						if not body.blocking:
-							body.player_gets_hurt()
+						if not body.parrying:
+							body.apply_knockback(direction, 500, 0.25)
+							if not body.blocking:
+								body.player_gets_hurt()
+								body.apply_knockback(direction, 1000, 0.25)
+						else:
+							attack_timer = -1.0
+							modulate = Color(0.3, 0.3, 0.3)
 						attack_count += 1
 		if $Sprite2D.flip_h and attack_timer <= 0.4:
 			orbit_angle = maxf(orbit_angle -orbit_speed*delta, -3.5)
@@ -100,8 +113,8 @@ func swing_door(delta) -> void:
 		attack_timer -= delta
 	else:
 		if not blocking:
-			$DoorBox.position = Vector2(0, -orbit_radius)
-		$DoorBox/Sprite2D.rotation = 0.0
+			$DoorBox.position = Vector2(100*(sign(2*int($Sprite2D.flip_h)-1)), -orbit_radius)
+		$DoorBox/Sprite2D.rotation = 0.5 - (1-float($Sprite2D.flip_h))
 		
 func handle_x_axis_movement(delta):
 	if knockback_timer > 0.0:
@@ -180,6 +193,12 @@ func handle_block():
 	if blocking:
 		$DoorBox.position = Vector2(0.0, 0.0)
 		$DoorBox.rotation = 0.0
+		
+func reset_after_parry(delta):
+	if attack_timer < 0.0:
+		attack_timer += min(delta, -attack_timer)
+		if attack_timer == 0.0:
+			modulate = Color(1, 1, 1)
 
 func reset_position_if_outside_map():
 	if (position.y > 900) or (position.x < -300) or (position.x > 1300):
@@ -231,3 +250,9 @@ func set_character_position(x: int, y:int):
 func end_game_if_player_has_no_life():
 	if lifes <= 0:
 		get_node("../../Game_Over").game_over()
+
+
+func _on_parry_time_timeout():
+	$parryboxArea.visible = false
+	parrying = false
+	$parryboxArea/cooldown.start()

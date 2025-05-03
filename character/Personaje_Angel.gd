@@ -214,6 +214,7 @@ func reset_position_if_outside_map():
 func player_gets_hurt():
 	health -= 10
 	health_change.emit()
+	$AudioStreamPlayer2D.play()
 	if health <= 0:
 		lifes -= 1
 		position.y = 70

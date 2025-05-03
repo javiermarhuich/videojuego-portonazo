@@ -1,10 +1,11 @@
-[gd_scene load_steps=29 format=3 uid="uid://d2iphac4y7y8i"]
+[gd_scene load_steps=30 format=3 uid="uid://d2iphac4y7y8i"]
 
 [ext_resource type="Script" uid="uid://5dqsrjp0weto" path="res://character/Personaje_Angel.gd" id="1_c45b1"]
 [ext_resource type="Texture2D" uid="uid://qtlf0ohtoxpv" path="res://images/wip_char.png" id="1_d2afa"]
 [ext_resource type="Texture2D" uid="uid://byuyg4omfgt7r" path="res://images/hud_door_icon.png" id="3_qvm42"]
 [ext_resource type="Texture2D" uid="uid://charw1mtixu47" path="res://images/white squer.png" id="4_0ofyb"]
 [ext_resource type="Texture2D" uid="uid://da16qg718ih3h" path="res://images/White_triangle.png" id="5_bxjxq"]
+[ext_resource type="AudioStream" uid="uid://brll1eg1uwn6c" path="res://musikk/Portazo.wav" id="6_euo1a"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bxjxq"]
 particle_flag_rotate_y = true
@@ -249,6 +250,9 @@ one_shot = true
 [node name="cooldown" type="Timer" parent="parryboxArea"]
 wait_time = 0.2
 one_shot = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_euo1a")
 
 [connection signal="timeout" from="GPUParticles2D/ParticleTimer" to="." method="_on_particle_timer_timeout"]
 [connection signal="timeout" from="parryboxArea/ParryTime" to="." method="_on_parry_time_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bgwa3klnyx3yj"]
+[gd_scene load_steps=13 format=3 uid="uid://bgwa3klnyx3yj"]
 
 [ext_resource type="Script" uid="uid://ctsuya4wr2m2f" path="res://test_nivel.gd" id="1_uyrhp"]
 [ext_resource type="PackedScene" uid="uid://d2iphac4y7y8i" path="res://character/Angel.tscn" id="2_wopbp"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://d341sykot2vlk" path="res://objects/Plataformas/PlataformaCentral.tscn" id="9_esuhr"]
 [ext_resource type="PackedScene" uid="uid://bqe3s4djfy5nr" path="res://objects/Plataformas/PlataformaDerecha.tscn" id="9_r2cik"]
 [ext_resource type="PackedScene" uid="uid://cfvixw7n7rda" path="res://objects/Plataformas/PlataformaIzquierda.tscn" id="10_3ocgg"]
+[ext_resource type="AudioStream" uid="uid://dtqf1x0swmjsu" path="res://musikk/DarkerButHappy.mp3" id="11_r2cik"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_esuhr"]
 font_size = 80
@@ -154,5 +155,9 @@ offset_right = 681.0
 offset_bottom = 396.0
 text = "Volver a jugar"
 metadata/_edit_use_anchors_ = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_r2cik")
+autoplay = true
 
 [connection signal="pressed" from="Game_Over/Button" to="Game_Over" method="_on_button_pressed"]

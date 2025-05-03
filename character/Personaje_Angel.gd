@@ -101,7 +101,7 @@ func swing_door(delta) -> void:
 								body.apply_knockback(direction, 1000, 0.25)
 						else:
 							attack_timer = -1.0
-							modulate = Color(0, 0, 0)
+							modulate = Color(0.3, 0.3, 0.3)
 						attack_count += 1
 		if $Sprite2D.flip_h and attack_timer <= 0.4:
 			orbit_angle = maxf(orbit_angle -orbit_speed*delta, -3.5)

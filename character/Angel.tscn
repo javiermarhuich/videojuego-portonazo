@@ -1,9 +1,25 @@
-[gd_scene load_steps=27 format=3 uid="uid://d2iphac4y7y8i"]
+[gd_scene load_steps=29 format=3 uid="uid://d2iphac4y7y8i"]
 
 [ext_resource type="Script" uid="uid://5dqsrjp0weto" path="res://character/Personaje_Angel.gd" id="1_c45b1"]
 [ext_resource type="Texture2D" uid="uid://qtlf0ohtoxpv" path="res://images/wip_char.png" id="1_d2afa"]
 [ext_resource type="Texture2D" uid="uid://byuyg4omfgt7r" path="res://images/hud_door_icon.png" id="3_qvm42"]
 [ext_resource type="Texture2D" uid="uid://charw1mtixu47" path="res://images/white squer.png" id="4_0ofyb"]
+[ext_resource type="Texture2D" uid="uid://da16qg718ih3h" path="res://images/White_triangle.png" id="5_bxjxq"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bxjxq"]
+particle_flag_rotate_y = true
+particle_flag_disable_z = true
+angle_min = 30.0
+angle_max = 360.0
+spread = 180.0
+initial_velocity_min = 178.17
+initial_velocity_max = 551.73
+linear_accel_min = -18.39
+linear_accel_max = 31.04
+radial_accel_min = 32.19
+radial_accel_max = 100.0
+scale_min = 0.01
+scale_max = 0.02
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kjfh5"]
 size = Vector2(100, 144)
@@ -162,6 +178,22 @@ size = Vector2(1183.33, 1043.75)
 collision_mask = 2
 script = ExtResource("1_c45b1")
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+emitting = false
+amount = 40
+sub_emitter = NodePath(".")
+texture = ExtResource("5_bxjxq")
+lifetime = 0.8
+speed_scale = 1.25
+randomness = 0.92
+fixed_fps = 10
+trail_lifetime = 0.72
+process_material = SubResource("ParticleProcessMaterial_bxjxq")
+
+[node name="ParticleTimer" type="Timer" parent="GPUParticles2D"]
+wait_time = 0.5
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_d2afa")
 hframes = 8
@@ -218,4 +250,5 @@ one_shot = true
 wait_time = 0.2
 one_shot = true
 
+[connection signal="timeout" from="GPUParticles2D/ParticleTimer" to="." method="_on_particle_timer_timeout"]
 [connection signal="timeout" from="parryboxArea/ParryTime" to="." method="_on_parry_time_timeout"]

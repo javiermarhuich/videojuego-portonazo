@@ -99,6 +99,7 @@ func swing_door(delta) -> void:
 							if not body.blocking:
 								body.player_gets_hurt()
 								body.apply_knockback(direction, 1000, 0.25)
+								body.start_particles()
 						else:
 							attack_timer = -1.0
 							modulate = Color(0.3, 0.3, 0.3)
@@ -256,3 +257,10 @@ func _on_parry_time_timeout():
 	$parryboxArea.visible = false
 	parrying = false
 	$parryboxArea/cooldown.start()
+
+func start_particles():
+	$GPUParticles2D.emitting = true
+	$GPUParticles2D/ParticleTimer.start()
+
+func _on_particle_timer_timeout():
+	$GPUParticles2D.emitting = false

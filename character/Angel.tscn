@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://5dqsrjp0weto" path="res://character/Personaje_Angel.gd" id="1_c45b1"]
 [ext_resource type="Texture2D" uid="uid://qtlf0ohtoxpv" path="res://images/wip_char.png" id="1_d2afa"]
-[ext_resource type="Texture2D" uid="uid://byuyg4omfgt7r" path="res://images/hud_door_icon.png" id="3_qvm42"]
 [ext_resource type="Texture2D" uid="uid://charw1mtixu47" path="res://images/white squer.png" id="4_0ofyb"]
+[ext_resource type="Texture2D" uid="uid://dwuwq7mrwhee6" path="res://images/door.png" id="4_bxjxq"]
 [ext_resource type="Texture2D" uid="uid://da16qg718ih3h" path="res://images/White_triangle.png" id="5_bxjxq"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bxjxq"]
@@ -227,11 +227,12 @@ debug_color = Color(0.690473, 0.493667, 0.178714, 0.42)
 shape = SubResource("RectangleShape2D_0ofyb")
 
 [node name="Sprite2D" type="Sprite2D" parent="DoorBox"]
-scale = Vector2(5, 5)
-texture = ExtResource("3_qvm42")
+position = Vector2(6.2161, 6.73801)
+rotation = 0.0349066
+scale = Vector2(0.111, 0.122)
+texture = ExtResource("4_bxjxq")
 
 [node name="parryboxArea" type="Area2D" parent="."]
-visible = false
 scale = Vector2(0.11, 0.16)
 
 [node name="parryboxCollision" type="CollisionShape2D" parent="parryboxArea"]

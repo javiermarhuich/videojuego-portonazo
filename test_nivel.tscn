@@ -1,15 +1,18 @@
-[gd_scene load_steps=13 format=3 uid="uid://bgwa3klnyx3yj"]
+[gd_scene load_steps=15 format=3 uid="uid://bgwa3klnyx3yj"]
 
 [ext_resource type="Script" uid="uid://ctsuya4wr2m2f" path="res://test_nivel.gd" id="1_uyrhp"]
 [ext_resource type="PackedScene" uid="uid://d2iphac4y7y8i" path="res://character/Angel.tscn" id="2_wopbp"]
 [ext_resource type="PackedScene" uid="uid://ckp6xtyjybqty" path="res://hud/HealthBar/health_bar.tscn" id="4_5snua"]
-[ext_resource type="Texture2D" uid="uid://byuyg4omfgt7r" path="res://images/hud_door_icon.png" id="4_7ul0h"]
 [ext_resource type="Script" uid="uid://dyrw5cuggvy0p" path="res://HUD.gd" id="4_eit4f"]
-[ext_resource type="Texture2D" uid="uid://ccuwk4viyt8uo" path="res://images/character_icon.png" id="5_eit4f"]
+[ext_resource type="Texture2D" uid="uid://bm7dvuh0gg6fr" path="res://images/wip_char_2.png" id="7_3ocgg"]
+[ext_resource type="Texture2D" uid="uid://qtlf0ohtoxpv" path="res://images/wip_char.png" id="7_g5a2i"]
 [ext_resource type="Script" uid="uid://b01sao5pug0bj" path="res://game_over.gd" id="9_01j55"]
 [ext_resource type="PackedScene" uid="uid://d341sykot2vlk" path="res://objects/Plataformas/PlataformaCentral.tscn" id="9_esuhr"]
+[ext_resource type="Texture2D" uid="uid://dwuwq7mrwhee6" path="res://images/door.png" id="9_g5a2i"]
 [ext_resource type="PackedScene" uid="uid://bqe3s4djfy5nr" path="res://objects/Plataformas/PlataformaDerecha.tscn" id="9_r2cik"]
 [ext_resource type="PackedScene" uid="uid://cfvixw7n7rda" path="res://objects/Plataformas/PlataformaIzquierda.tscn" id="10_3ocgg"]
+[ext_resource type="Texture2D" uid="uid://dauwpdjoaipst" path="res://images/character_icon_1.png" id="10_g5a2i"]
+[ext_resource type="Texture2D" uid="uid://drsdkfbxwdaq2" path="res://images/character_icon_2.png" id="12_s4dtw"]
 [ext_resource type="AudioStream" uid="uid://dtqf1x0swmjsu" path="res://musikk/DarkerButHappy.mp3" id="11_r2cik"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_esuhr"]
@@ -42,6 +45,7 @@ position = Vector2(320, 248)
 scale = Vector2(0.375444, 0.375217)
 collision_layer = 3
 collision_mask = 1
+sprites = ExtResource("7_g5a2i")
 
 [node name="Jugador2" parent="Nivel_jugable" instance=ExtResource("2_wopbp")]
 light_mask = 3
@@ -50,6 +54,7 @@ position = Vector2(828, 224)
 scale = Vector2(0.375444, 0.375217)
 collision_layer = 3
 collision_mask = 1
+sprites = ExtResource("7_3ocgg")
 input_prefix = "p2"
 enemy_input_prefix = "p1"
 
@@ -68,20 +73,23 @@ grow_vertical = 2
 
 [node name="p1_vida_3" type="Sprite2D" parent="HUD/Control"]
 position = Vector2(160, 70)
-texture = ExtResource("4_7ul0h")
+scale = Vector2(0.025, 0.025)
+texture = ExtResource("9_g5a2i")
 
 [node name="p1_vida_2" type="Sprite2D" parent="HUD/Control"]
 position = Vector2(135, 70)
-texture = ExtResource("4_7ul0h")
+scale = Vector2(0.025, 0.025)
+texture = ExtResource("9_g5a2i")
 
 [node name="p1_vida_1" type="Sprite2D" parent="HUD/Control"]
 position = Vector2(109, 70)
-texture = ExtResource("4_7ul0h")
+scale = Vector2(0.025, 0.025)
+texture = ExtResource("9_g5a2i")
 
 [node name="CharacterIcon" type="Sprite2D" parent="HUD/Control"]
-position = Vector2(64, 56)
-scale = Vector2(1.66667, 1.75)
-texture = ExtResource("5_eit4f")
+position = Vector2(54, 54)
+scale = Vector2(1.75, 1.75)
+texture = ExtResource("10_g5a2i")
 
 [node name="TextureProgressBar" parent="HUD/Control" node_paths=PackedStringArray("player") instance=ExtResource("4_5snua")]
 layout_mode = 0
@@ -101,20 +109,23 @@ grow_vertical = 2
 
 [node name="p2_Vida_3" type="Sprite2D" parent="HUD/Control2"]
 position = Vector2(996, 71)
-texture = ExtResource("4_7ul0h")
+scale = Vector2(0.025, 0.025)
+texture = ExtResource("9_g5a2i")
 
 [node name="p2_Vida_2" type="Sprite2D" parent="HUD/Control2"]
 position = Vector2(1020, 71)
-texture = ExtResource("4_7ul0h")
+scale = Vector2(0.025, 0.025)
+texture = ExtResource("9_g5a2i")
 
 [node name="p2_Vida_1" type="Sprite2D" parent="HUD/Control2"]
 position = Vector2(1044, 71)
-texture = ExtResource("4_7ul0h")
+scale = Vector2(0.025, 0.025)
+texture = ExtResource("9_g5a2i")
 
 [node name="CharacterIcon" type="Sprite2D" parent="HUD/Control2"]
-position = Vector2(1082, 58)
-scale = Vector2(1.66667, 1.75)
-texture = ExtResource("5_eit4f")
+position = Vector2(1088, 54)
+scale = Vector2(1.75, 1.837)
+texture = ExtResource("12_s4dtw")
 flip_h = true
 
 [node name="TextureProgressBar" parent="HUD/Control2" node_paths=PackedStringArray("player") instance=ExtResource("4_5snua")]

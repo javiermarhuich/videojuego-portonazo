@@ -5,6 +5,8 @@ signal health_change
 signal lifes_change
 signal player_puts_new_portal
 
+@export var sprites : Texture2D
+
 @onready var animation_tree = $AnimationTree
 @onready var hurt_box = $Hurtbox
 @onready var state_machine = animation_tree.get('parameters/playback')
@@ -40,6 +42,7 @@ var curr_jump_count = 0
 var can_be_attacked_by_enemy = false
 
 func _ready() -> void:
+	$Sprite2D.texture = sprites
 	hurt_box.connect("body_entered", Callable(self, "_on_body_entered"))
 	hurt_box.connect("body_exited", Callable(self, "_on_body_exited"))
 	$parryboxArea.visible = false

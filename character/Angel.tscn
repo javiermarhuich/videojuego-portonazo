@@ -172,7 +172,7 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 size = Vector2(115, 155)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ofyb"]
-size = Vector2(101, 142)
+size = Vector2(101, 149)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bxjxq"]
 size = Vector2(1183.33, 1043.75)
@@ -228,6 +228,7 @@ debug_color = Color(0.690473, 0.493667, 0.178714, 0.42)
 [node name="DoorBox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorBox"]
+position = Vector2(0, -3.5)
 shape = SubResource("RectangleShape2D_0ofyb")
 
 [node name="Sprite2D" type="Sprite2D" parent="DoorBox"]

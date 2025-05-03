@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bgwa3klnyx3yj"]
+[gd_scene load_steps=16 format=3 uid="uid://bgwa3klnyx3yj"]
 
 [ext_resource type="Script" uid="uid://ctsuya4wr2m2f" path="res://test_nivel.gd" id="1_uyrhp"]
 [ext_resource type="PackedScene" uid="uid://d2iphac4y7y8i" path="res://character/Angel.tscn" id="2_wopbp"]
@@ -12,8 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://bqe3s4djfy5nr" path="res://objects/Plataformas/PlataformaDerecha.tscn" id="9_r2cik"]
 [ext_resource type="PackedScene" uid="uid://cfvixw7n7rda" path="res://objects/Plataformas/PlataformaIzquierda.tscn" id="10_3ocgg"]
 [ext_resource type="Texture2D" uid="uid://dauwpdjoaipst" path="res://images/character_icon_1.png" id="10_g5a2i"]
-[ext_resource type="Texture2D" uid="uid://drsdkfbxwdaq2" path="res://images/character_icon_2.png" id="12_s4dtw"]
 [ext_resource type="AudioStream" uid="uid://dtqf1x0swmjsu" path="res://musikk/DarkerButHappy.mp3" id="11_r2cik"]
+[ext_resource type="Texture2D" uid="uid://drsdkfbxwdaq2" path="res://images/character_icon_2.png" id="12_s4dtw"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_esuhr"]
 font_size = 80

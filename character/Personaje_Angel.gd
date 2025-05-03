@@ -56,7 +56,7 @@ func _physics_process(delta: float) -> void:
 	handle_y_axis_movement(delta)
 	reset_position_if_outside_map()
 	handle_knockback(delta)
-	handle_create_new_portal()
+	#handle_create_new_portal()
 	swing_door(delta)
 	handle_block()
 	move_and_slide()
@@ -95,10 +95,10 @@ func swing_door(delta) -> void:
 						else:
 							direction = Vector2(1.0,-1.0)
 						if not body.parrying:
-							body.apply_knockback(direction, 500, 0.25)
+							body.apply_knockback(direction, 250+2500/body.health, 0.25+1.0/body.health)
 							if not body.blocking:
 								body.player_gets_hurt()
-								body.apply_knockback(direction, 1000, 0.25)
+								body.apply_knockback(direction, 500+5000/body.health, 0.25+1.0/body.health)
 								body.start_particles()
 						else:
 							attack_timer = -1.0

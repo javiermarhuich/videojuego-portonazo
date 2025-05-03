@@ -95,10 +95,10 @@ func swing_door(delta) -> void:
 						else:
 							direction = Vector2(1.0,-1.0)
 						if not body.parrying:
-							body.apply_knockback(direction, 500, 0.25)
+							body.apply_knockback(direction, 250+2500/body.health, 0.25+1.0/body.health)
 							if not body.blocking:
 								body.player_gets_hurt()
-								body.apply_knockback(direction, 1000, 0.25)
+								body.apply_knockback(direction, 500+5000/body.health, 0.25+1.0/body.health)
 								body.start_particles()
 						else:
 							attack_timer = -1.0

@@ -1,8 +1,9 @@
-[gd_scene load_steps=25 format=3 uid="uid://d2iphac4y7y8i"]
+[gd_scene load_steps=27 format=3 uid="uid://d2iphac4y7y8i"]
 
 [ext_resource type="Script" uid="uid://5dqsrjp0weto" path="res://character/Personaje_Angel.gd" id="1_c45b1"]
 [ext_resource type="Texture2D" uid="uid://qtlf0ohtoxpv" path="res://images/wip_char.png" id="1_d2afa"]
 [ext_resource type="Texture2D" uid="uid://byuyg4omfgt7r" path="res://images/hud_door_icon.png" id="3_qvm42"]
+[ext_resource type="Texture2D" uid="uid://charw1mtixu47" path="res://images/white squer.png" id="4_0ofyb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kjfh5"]
 size = Vector2(100, 144)
@@ -154,6 +155,9 @@ size = Vector2(115, 155)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ofyb"]
 size = Vector2(101, 142)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bxjxq"]
+size = Vector2(1183.33, 1043.75)
+
 [node name="Jugador" type="CharacterBody2D"]
 collision_mask = 2
 script = ExtResource("1_c45b1")
@@ -193,3 +197,25 @@ shape = SubResource("RectangleShape2D_0ofyb")
 [node name="Sprite2D" type="Sprite2D" parent="DoorBox"]
 scale = Vector2(5, 5)
 texture = ExtResource("3_qvm42")
+
+[node name="parryboxArea" type="Area2D" parent="."]
+visible = false
+scale = Vector2(0.11, 0.16)
+
+[node name="parryboxCollision" type="CollisionShape2D" parent="parryboxArea"]
+shape = SubResource("RectangleShape2D_bxjxq")
+
+[node name="parryboxSprite" type="Sprite2D" parent="parryboxArea"]
+modulate = Color(0, 0, 0, 0.286275)
+scale = Vector2(1.1, 0.97)
+texture = ExtResource("4_0ofyb")
+
+[node name="ParryTime" type="Timer" parent="parryboxArea"]
+wait_time = 0.1
+one_shot = true
+
+[node name="cooldown" type="Timer" parent="parryboxArea"]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="timeout" from="parryboxArea/ParryTime" to="." method="_on_parry_time_timeout"]

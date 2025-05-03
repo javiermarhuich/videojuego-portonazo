@@ -4,8 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://qtlf0ohtoxpv" path="res://images/wip_char.png" id="1_d2afa"]
 [ext_resource type="Texture2D" uid="uid://byuyg4omfgt7r" path="res://images/hud_door_icon.png" id="3_qvm42"]
 [ext_resource type="Texture2D" uid="uid://charw1mtixu47" path="res://images/white squer.png" id="4_0ofyb"]
-[ext_resource type="Texture2D" uid="uid://da16qg718ih3h" path="res://images/White_triangle.png" id="5_bxjxq"]
 [ext_resource type="AudioStream" uid="uid://brll1eg1uwn6c" path="res://musikk/Portazo.wav" id="6_euo1a"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bxjxq"]
+load_path = "res://.godot/imported/White_triangle.png-4465fe3b0061ea9db0c465f799f8a214.ctex"
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bxjxq"]
 particle_flag_rotate_y = true
@@ -19,8 +21,8 @@ linear_accel_min = -18.39
 linear_accel_max = 31.04
 radial_accel_min = 32.19
 radial_accel_max = 100.0
-scale_min = 0.01
-scale_max = 0.02
+scale_min = 0.06
+scale_max = 0.12
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kjfh5"]
 size = Vector2(100, 144)
@@ -184,11 +186,12 @@ modulate = Color(1, 0, 0, 1)
 emitting = false
 amount = 40
 sub_emitter = NodePath(".")
-texture = ExtResource("5_bxjxq")
+texture = SubResource("CompressedTexture2D_bxjxq")
 lifetime = 0.8
 speed_scale = 1.25
 randomness = 0.92
 fixed_fps = 10
+visibility_rect = Rect2(-1000, -1000, 2000, 2000)
 trail_lifetime = 0.72
 process_material = SubResource("ParticleProcessMaterial_bxjxq")
 

@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 SettingsDataManager="*res://addons/modular-settings-menu/singletons/settings_data_manager.gd"
 
+[display]
+
+window/stretch/mode="viewport"
+
 [dotnet]
 
 project/assembly_name="Videojuego Portonazo"

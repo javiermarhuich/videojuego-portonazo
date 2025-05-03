@@ -56,7 +56,7 @@ func _physics_process(delta: float) -> void:
 	handle_y_axis_movement(delta)
 	reset_position_if_outside_map()
 	handle_knockback(delta)
-	handle_create_new_portal()
+	#handle_create_new_portal()
 	swing_door(delta)
 	handle_block()
 	move_and_slide()

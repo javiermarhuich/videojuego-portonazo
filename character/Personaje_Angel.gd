@@ -42,6 +42,7 @@ var can_be_attacked_by_enemy = false
 func _ready() -> void:
 	hurt_box.connect("body_entered", Callable(self, "_on_body_entered"))
 	hurt_box.connect("body_exited", Callable(self, "_on_body_exited"))
+	$parryboxArea.visible = false
 	
 func _on_body_entered(body: Node2D) -> void:
 	if body is Angel and body != self:
@@ -95,10 +96,10 @@ func swing_door(delta) -> void:
 						else:
 							direction = Vector2(1.0,-1.0)
 						if not body.parrying:
-							body.apply_knockback(direction, 250+2500/body.health, 0.25+1.0/body.health)
+							body.apply_knockback(direction, 250+2500/max(body.health,20), 0.25+1.0/max(body.health,20))
 							if not body.blocking:
 								body.player_gets_hurt()
-								body.apply_knockback(direction, 500+5000/body.health, 0.25+1.0/body.health)
+								body.apply_knockback(direction, 1.2*(400+15000/max(body.health,15)), (0.25+1.0/max(body.health,15)))
 								body.start_particles()
 						else:
 							attack_timer = -1.0
